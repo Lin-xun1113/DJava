@@ -1,0 +1,47 @@
+# ==================== IDE ====================
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# ==================== Java/Maven ====================
+backend/target/
+*.class
+*.jar
+*.war
+*.log
+*.tmp
+
+# ==================== Node/Frontend ====================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+*.tsbuildinfo
+
+# ==================== Logs ====================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db
+*.bak
+*~
+
+# ==================== Uploads/Temp ====================
+uploads/
+temp/
+tmp/
+
+# ==================== Secrets ====================
+*.pem
+*.key
+.env
+.env.local
