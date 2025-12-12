@@ -1,0 +1,74 @@
+# =====================================================
+# 飞马星球医院预约挂号系统 - Spring Boot 配置
+# =====================================================
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  tomcat:
+    threads:
+      max: 200        # 最大工作线程数（多线程处理）
+      min-spare: 10   # 最小空闲线程数
+    max-connections: 8192
+    accept-count: 100
+
+spring:
+  application:
+    name: pegasus-hospital
+  
+  # 数据源配置 (HikariCP连接池)
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pegasus_hospital?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "123456"
+    hikari:
+      pool-name: HikariCP-Hospital
+      minimum-idle: 5           # 最小空闲连接数
+      maximum-pool-size: 20     # 最大连接数
+      idle-timeout: 30000       # 空闲连接超时时间(ms)
+      max-lifetime: 1800000     # 连接最大生命周期(ms)
+      connection-timeout: 30000 # 连接超时时间(ms)
+      connection-test-query: SELECT 1
+  
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+  
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pegasus.hospital.entity
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT配置
+jwt:
+  secret: PegasusHospitalSecretKey2024VeryLongSecretKeyForJWT
+  expiration: 86400000  # 24小时(ms)
+
+# 日志配置
+logging:
+  level:
+    com.pegasus.hospital: debug
+    com.baomidou.mybatisplus: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
